@@ -255,7 +255,7 @@ def cluster_and_segment(mesh_centroids_normalized, face_normal_value, dot_output
     labels_upper = labels_upper * 2 - 1
 
     # set inner surface which contains mostly positive normals
-    if face_normal_value[labels_upper == -1, 1].mean() < 0:
+    if face_normal_value[labels_upper == -1, 2].mean() < 0:
         labels_upper = -labels_upper
 
     return labels_upper
