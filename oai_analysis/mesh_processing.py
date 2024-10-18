@@ -277,21 +277,21 @@ def split_femoral_cartilage_surface(mesh, face_normal, face_centroid, num_divisi
     connect_direction = center - face_centroid
 
     dot_output = np.multiply(connect_direction, face_normal)
-    x_coord = mesh_centroids_normalized[:, 0]
+    y_coord = mesh_centroids_normalized[:, 1]
 
     # For puting the labels at correct indices for all the segments
     inner_outer_label_list = np.zeros(mesh_centroids_normalized.shape[0])
 
     # For dividing the mesh into smaller segments for better clustering
-    min_x = np.min(mesh_centroids_normalized[:, 0])
-    max_x = np.max(mesh_centroids_normalized[:, 0])
-    step_value = (max_x - min_x) / num_divisions
+    min_y = np.min(mesh_centroids_normalized[:, 1])
+    max_y = np.max(mesh_centroids_normalized[:, 1])
+    step_value = (max_y - min_y) / num_divisions
 
     # Perform clustering for each segment individually
     for i in range(num_divisions):
-        lower_x = min_x + step_value * i
-        upper_x = lower_x + step_value
-        current_indices = np.where((x_coord >= lower_x) & (x_coord < upper_x))[0]
+        lower_y = min_y + step_value * i
+        upper_y = lower_y + step_value
+        current_indices = np.where((y_coord >= lower_y) & (y_coord < upper_y))[0]
 
         mesh_centroids_normalized_extracted = mesh_centroids_normalized[current_indices]
         face_normal_value_extracted = face_normal[current_indices]
