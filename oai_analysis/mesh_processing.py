@@ -409,9 +409,10 @@ def get_thickness_mesh(itk_image, mesh_type="FC", num_iterations=150):
     # Get mesh from itk image
     itk_mesh = get_mesh_from_probability_map(itk_image)
     vtk_mesh = itk_mesh_to_vtk_mesh(itk_mesh)
+    mesh = smooth_mesh(vtk_mesh, num_iterations=num_iterations)
 
     # Split the mesh into inner and outer
-    inner_mesh, outer_mesh = split_mesh(vtk_mesh, mesh_type)
+    inner_mesh, outer_mesh = split_mesh(mesh, mesh_type)
 
     # Get the distance between inner and outer mesh
     distance_inner, distance_outer = get_distance(inner_mesh, outer_mesh)
